@@ -1,0 +1,1 @@
+export const ASSET_BASE = "C:\\Users\\Supalosa\\projects\\assets-soltrainer\\models";
