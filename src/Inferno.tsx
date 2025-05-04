@@ -4,7 +4,7 @@ import { Mesh } from "three";
 
 export default function Inferno() {
   const gltf = useGLTF("Zuk.glb");
-  const animations = useAnimations(gltf.animations);
+  const { mixer } = useAnimations(gltf.animations, gltf.scene);
 
   const node1 = Object.keys(gltf.nodes)[0];
   const material1 = Object.keys(gltf.materials)[0];
@@ -12,7 +12,6 @@ export default function Inferno() {
   const mesh = gltf.nodes[node1] as Mesh;
 
   useEffect(() => {
-    const { mixer } = animations;
     const anims = gltf.animations.map((animation) => {
       const action = mixer.clipAction(animation);
       action.clampWhenFinished = true;
@@ -21,7 +20,7 @@ export default function Inferno() {
       return action;
     });
     anims[0].play();
-  }, []);
+  }, [mixer, gltf.animations]);
 
   return (
     <group>
